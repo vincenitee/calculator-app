@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Ubuntu font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="frame">
+        <input type="text" id="output" readonly value="0">
+
+        <div id="btn-container">
+            <button class="span-2" id="clear-btn">AC</button>
+            <button class="span-2" id="del-btn">Del</button>
+
+            <button class="digit" data-value="7">7</button>
+            <button class="digit" data-value="8">8</button>
+            <button class="digit" data-value="9">9</button>
+            <button class="operator" data-value="*">*</button>
+
+            <button class="digit" data-value="4">4</button>
+            <button class="digit" data-value="5">5</button>
+            <button class="digit" data-value="6">6</button>
+            <button class="operator" data-value="/">/</button>
+
+            <button class="digit" data-value="1">1</button>
+            <button class="digit" data-value="2">2</button>
+            <button class="digit" data-value="3">3</button>
+            <button class="operator" data-value="+">+</button>
+
+            <button class="digit" data-value=".">.</button>
+            <button class="digit" data-value="0">0</button>
+            <button id="equal-btn">=</button>
+            <button class="operator" data-value="-">-</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
