@@ -83,6 +83,10 @@ function removeLastElement(value){
     return value.slice(0, -1);
 }
 
+function containsDecimal(operand){
+    return operand.split('').includes('.');
+}
+
 digitButtons.forEach((button) => {
     button.addEventListener('click', () => { appendNumber(button.textContent) })
 });
