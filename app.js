@@ -5,6 +5,7 @@ let operator = null;
 const selectById = (id) => document.getElementById(id);
 const selectAll = (clazz) => document.querySelectorAll(`.${clazz}`);
 
+const display = selectById('display');
 const digitButtons = selectAll('digit');
 const operatorButtons = selectAll('operator');
 
@@ -33,10 +34,10 @@ function appendNumber(number) {
         firstOperand = firstOperand === 0 ? number : firstOperand + number;
     } else {
         secondOperand = secondOperand === 0 ? number : secondOperand + number;
-    }    
+    }
 }
 
-function operate(operator, a, b){
+function operate(operator, a, b) {
     const operations = {
         '*': multiply(a, b),
         '/': divide(a, b),
@@ -47,8 +48,15 @@ function operate(operator, a, b){
     return operations[operator];
 }
 
+function updateDisplay(value) {
+    display.value = value;
+}
+
 digitButtons.forEach((button) => {
-    button.addEventListener('click', () => { appendNumber(button.textContent) })
+    button.addEventListener('click', () => { 
+        appendNumber(button.textContent);
+        
+    })
 });
 
 operatorButtons.forEach((button) => {
