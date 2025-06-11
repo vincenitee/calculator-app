@@ -1,5 +1,6 @@
-let firstOperand = 0;
-let secondOperand = 0;
+let firstOperand = "";
+let secondOperand = "";
+let result = 0;
 let operator = null;
 
 const selectById = (id) => document.getElementById(id);
@@ -8,6 +9,9 @@ const selectAll = (clazz) => document.querySelectorAll(`.${clazz}`);
 const display = selectById('display');
 const digitButtons = selectAll('digit');
 const operatorButtons = selectAll('operator');
+const equalButton = selectById('equal-btn');
+const deleteButton = selectById('del-btn');
+const clearButton = selectById('clear-btn');
 
 function multiply(a, b) {
     return a * b;
@@ -30,14 +34,23 @@ function roundResult(result) {
 }
 
 function appendNumber(number) {
+    let displayValue;
+
     if (!operator) {
         firstOperand = firstOperand === 0 ? number : firstOperand + number;
+        displayValue = firstOperand;
     } else {
         secondOperand = secondOperand === 0 ? number : secondOperand + number;
+        displayValue = secondOperand;
     }
+
+    updateDisplay(displayValue);
 }
 
 function operate(operator, a, b) {
+    a = Number(a);
+    b = Number(b);
+
     const operations = {
         '*': multiply(a, b),
         '/': divide(a, b),
@@ -48,20 +61,51 @@ function operate(operator, a, b) {
     return operations[operator];
 }
 
+function clearDisplay() {
+    display.value = 0;
+}
+
+function resetInitialState() {
+    firstOperand = "";
+    secondOperand = "";
+    operator = null;
+}
+
 function updateDisplay(value) {
     display.value = value;
 }
 
 digitButtons.forEach((button) => {
-    button.addEventListener('click', () => { 
-        appendNumber(button.textContent);
-        
-    })
+    button.addEventListener('click', () => { appendNumber(button.textContent) })
 });
 
 operatorButtons.forEach((button) => {
     button.addEventListener('click', () => { operator = button.textContent })
 });
+
+equalButton.addEventListener('click', () => {
+    let result = operate(operator, firstOperand, secondOperand);
+    updateDisplay(result);
+});
+
+clearButton.addEventListener('click', () => {
+    clearDisplay();
+    resetInitialState();
+});
+
+deleteButton.addEventListener('click', () => {
+    if (!operator) {
+        firstOperand = firstOperand.slice(0, -1);
+        updateDisplay(firstOperand || "0");
+    } else if (secondOperand) {
+        secondOperand = secondOperand.slice(0, -1);
+        updateDisplay(secondOperand);
+    } else {
+        operator = null;
+        updateDisplay(firstOperand);
+    }
+})
+
 
 
 
