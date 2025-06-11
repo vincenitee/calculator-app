@@ -12,6 +12,7 @@ const operatorButtons = selectAll('operator');
 const equalButton = selectById('equal-btn');
 const deleteButton = selectById('del-btn');
 const clearButton = selectById('clear-btn');
+const decimalButton = selectById('decimal-btn');
 
 function multiply(a, b) {
     return a * b;
@@ -36,14 +37,21 @@ function roundResult(result) {
 function appendNumber(number) {
     let displayValue;
 
+    disableDecimalButton(false);
+
     if (!operator) {
         firstOperand = firstOperand === 0 ? number : firstOperand + number;
         displayValue = firstOperand;
+        
+        // Checks if there is a decimal point
+        if(containsDecimal(firstOperand)) disableDecimalButton(true);
 
         console.log(`First Operand: ${firstOperand}`);
     } else {
         secondOperand = secondOperand === 0 ? number : secondOperand + number;
         displayValue = secondOperand;
+
+        if(containsDecimal(secondOperand)) disableDecimalButton(true);
 
         console.log(`Second Operand: ${secondOperand}`);
     }
@@ -85,6 +93,10 @@ function removeLastElement(value){
 
 function containsDecimal(operand){
     return operand.split('').includes('.');
+}
+
+function disableDecimalButton(status){
+    decimalButton.disabled = status;
 }
 
 digitButtons.forEach((button) => {
