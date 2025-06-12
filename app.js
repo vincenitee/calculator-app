@@ -19,6 +19,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if(b === 0) return 'Can\'t divide by 0'
     return a / b;
 }
 
@@ -64,13 +65,13 @@ function operate(operator, a, b) {
     b = Number(b);
 
     const operations = {
-        '*': multiply(a, b),
-        '/': divide(a, b),
-        '+': add(a, b),
-        '-': subtract(a, b),
+        '*': multiply,
+        '/': divide,
+        '+': add,
+        '-': subtract,
     };
 
-    return operations[operator];
+    return operations[operator](a, b);
 }
 
 function clearDisplay() {
@@ -107,11 +108,14 @@ operatorButtons.forEach((button) => {
     button.addEventListener('click', () => { 
         if(firstOperand && secondOperand){
             result = operate(operator, firstOperand, secondOperand);
-
-            console.log(result);
-            firstOperand = roundResult(result);
-            secondOperand = "";
-            updateDisplay(firstOperand);
+            // console.log(result);
+            if(typeof result === Number) {
+                firstOperand = roundResult(result);
+                secondOperand = "";
+                updateDisplay(firstOperand);
+            } else{
+                updateDisplay(result);
+            }
         }
 
         operator = button.textContent;
@@ -122,7 +126,8 @@ operatorButtons.forEach((button) => {
 equalButton.addEventListener('click', () => {
     if (firstOperand === '' || secondOperand === '') return;
     result = operate(operator, firstOperand, secondOperand);
-    updateDisplay(roundResult(result));
+    let displaValue = (typeof result === Number) ? roundResult(result) : result;
+    updateDisplay(displaValue);
 });
 
 clearButton.addEventListener('click', () => {
